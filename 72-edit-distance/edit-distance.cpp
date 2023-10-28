@@ -1,5 +1,5 @@
 class Solution {
-    int solve(string w1,string w2 ,int i,int j,vector<vector<int>>&dp){
+    int solve(string& w1,string& w2 ,int i,int j,vector<vector<int>>&dp){
         if(i==w1.length()){
             return w2.length()-j;
         }
