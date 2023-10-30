@@ -13,7 +13,7 @@ public:
     vector<int> sortByBits(vector<int>& arr) {
         vector<vector<int>>v;
         for(int i=0;i<arr.size();i++){
-            int x = solve(arr[i]);
+            int x = __builtin_popcount(arr[i]);
             v.push_back({x,arr[i]});
         }
         sort(v.begin(),v.end());
