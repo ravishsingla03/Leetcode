@@ -12,14 +12,21 @@ class Solution {
 public:
     vector<int> sortByBits(vector<int>& arr) {
         vector<vector<int>>v;
+        map<int,vector<int>> mp;
+
         for(int i=0;i<arr.size();i++){
             int x = __builtin_popcount(arr[i]);
-            v.push_back({x,arr[i]});
+            mp[x].push_back(arr[i]);
+            // v.push_back({x,arr[i]});
         }
-        sort(v.begin(),v.end());
         vector<int>ans;
-        for(auto i: v){
-            ans.push_back(i[1]);
+        for(auto i: mp){
+            vector<int>temp;
+            temp = i.second;
+            sort(temp.begin(),temp.end());
+            for(auto j : temp){
+                ans.push_back(j);
+            }
         }
         return ans;
     }
