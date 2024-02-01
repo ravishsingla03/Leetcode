@@ -6,14 +6,8 @@ public:
         bool flag =false;
         int i=0;
         while(i<nums.size()){
-            if(abs(nums[i]-nums[i+1])>k){
+            if(abs(nums[i]-nums[i+1])>k || abs(nums[i+1]-nums[i+2])>k || abs(nums[i]-nums[i+2])>k){
                 flag=true;
-            }
-            else if(abs(nums[i+1]-nums[i+2])>k){
-                flag =true;
-            }
-            else if(abs(nums[i]-nums[i+2])>k){
-                flag =true;
             }
             if(flag){
                 return {};
