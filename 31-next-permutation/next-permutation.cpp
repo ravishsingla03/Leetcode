@@ -1,9 +1,9 @@
 class Solution {
 public:
     void nextPermutation(vector<int>& nums) {
+        //longest prefix match find breakpoint
         int index=-1;
-        int n = nums.size();
-        for(int i=n-2;i>=0;i--){
+        for(int i=nums.size()-2;i>=0;i--){
             if(nums[i]<nums[i+1]){
                 index=i;
                 break;
@@ -11,16 +11,15 @@ public:
         }
         if(index==-1){
             reverse(nums.begin(),nums.end());
-            return;
+            return ;
         }
-        for(int i=n-1;i>index;i--)
-        {
+        //swap the just greater value
+        for(int i=nums.size()-1;i>index;i--){
             if(nums[i]>nums[index]){
                 swap(nums[i],nums[index]);
+                reverse(nums.begin()+index+1,nums.end());
                 break;
             }
         }
-        reverse(nums.begin()+index+1 , nums.end());
-        return;
     }
 };
