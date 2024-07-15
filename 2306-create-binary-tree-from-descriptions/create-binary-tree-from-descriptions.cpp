@@ -14,9 +14,14 @@ public:
     TreeNode* createBinaryTree(vector<vector<int>>& d) {
         unordered_map<int,bool>temp;
         TreeNode* root =NULL;
+        unordered_map<int,TreeNode*>mp;
 
         for(auto i: d){
             temp[i[0]]=1;
+            TreeNode* parent = new TreeNode(i[0]);
+            TreeNode* child = new TreeNode(i[1]);
+            mp[i[0]] = parent;
+            mp[i[1]] = child;
         }
 
         for(auto i:d){
@@ -24,24 +29,14 @@ public:
                 temp[i[1]]=false;
             }
         }
+        
         int rootval;
         for(auto i:temp){
             if(i.second==true){
                 rootval = i.first;
             }
         }
-
-        unordered_map<int,TreeNode*>mp;
-        for(auto i : d){
-            TreeNode* parent = new TreeNode(i[0]);
-            TreeNode* child = new TreeNode(i[1]);
-            mp[i[0]] = parent;
-            mp[i[1]] = child;
-        }
-
-        for(auto i:mp){
-            cout<<i.first<<"->"<<i.second->val<<" ";
-        }
+        root = mp[rootval];
 
         for(auto i:d){
             TreeNode* parent = mp[i[0]];
@@ -55,7 +50,6 @@ public:
             }
         }
 
-        root = mp[rootval];
         return root;
     }
 };
