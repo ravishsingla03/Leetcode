@@ -21,11 +21,10 @@ public:
             v.push_back({i.second.second,i.first});
         }
 
-        sort(v.begin(),v.end(),comp);
+        sort(v.begin(),v.end());
 
         int count =1;
         for(auto i: v){
-            cout<<i.first<<" "<<i.second<<" "<<count<<endl;
             if(count==k){
                 return i.second;
             }
