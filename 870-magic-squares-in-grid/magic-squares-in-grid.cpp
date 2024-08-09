@@ -1,5 +1,5 @@
 class Solution {
-    bool solve(vector<vector<int>>grid,int row,int col){
+    bool solve(vector<vector<int>>&grid,int row,int col){
         int temp=0;
         unordered_map<int,int>mp;
         for(int i=row;i<row+3;i++){
