@@ -1,37 +1,31 @@
 class Solution {
-    int solve(string& w1,string& w2 ,int i,int j,vector<vector<int>>&dp){
-        if(i==w1.length()){
-            return w2.length()-j;
+    int solve(string w1,string w2,int ind1,int ind2,vector<vector<int>>&dp){
+        if(ind1==w1.size()){
+            return w2.size()-ind2;
         }
-        if(j==w2.length()){
-            return w1.length()-i;
+        if(ind2==w2.size()){
+            return w1.size()-ind1;
         }
-
-        if(dp[i][j]!=-1){
-            return dp[i][j];
+        if(dp[ind1][ind2]!=-1){
+            return dp[ind1][ind2];
         }
-
-        int ans =0;
-        if(w1[i]==w2[j]){
-            return solve(w1,w2,i+1,j+1,dp);
+        if(w1[ind1]==w2[ind2]){
+            return solve(w1,w2,ind1+1,ind2+1,dp);
         }
         else{
-            //insert
-            int a = 1 + solve(w1,w2,i,j+1,dp);
 
-            //delete
-            int b = 1 + solve(w1,w2 , i+1,j,dp);
-
-            //replace
-            int c = 1 +  solve(w1,w2 , i+1,j+1,dp);
-
-            ans = min(a,min(b,c));
+        //delete
+        int del = 1 + solve(w1,w2,ind1+1,ind2,dp);
+        //replace
+        int rep = 1 + solve(w1,w2,ind1+1,ind2+1,dp);
+        //insert
+        int ins = 1 + solve(w1,w2,ind1,ind2+1,dp);
+        return dp[ind1][ind2]=min(del,min(rep,ins));
         }
-        return dp[i][j]=ans;
     }
 public:
-    int minDistance(string word1, string word2) {
-        vector<vector<int>> dp (word1.length(),vector<int>(word2.length(),-1));
-        return solve(word1,word2,0,0,dp);
+    int minDistance(string w1, string w2) {
+        vector<vector<int>>dp(w1.size(),vector<int>(w2.size(),-1));
+        return solve(w1,w2,0,0,dp);
     }
 };
