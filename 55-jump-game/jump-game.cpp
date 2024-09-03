@@ -14,7 +14,7 @@ class Solution {
             return dp[index];
         }
         bool ans = false;
-        for(int i=1;i<=nums[index];i++){
+        for(int i=nums[index];i>=1;i--){
             ans = ans || solve(nums,index+i,dp);
             if(ans){
                 break;
