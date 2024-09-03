@@ -5,18 +5,15 @@ class Solution {
             return 0;
         }
         if(index>=n){
-            return INT_MAX;
+            return nums.size()+1;
         }
 
         if(dp[index]!=-1){
             return dp[index];
         }
-        int ans =INT_MAX;
+        int ans =nums.size() + 1;
         for(int i=nums[index];i>=1;i--){
-            int temp = solve(nums,index + i,dp);
-            if(temp!=INT_MAX){
-                temp +=1;
-            }
+            int temp = 1 + solve(nums,index + i,dp);
             ans = min(ans,temp);
 
         }
