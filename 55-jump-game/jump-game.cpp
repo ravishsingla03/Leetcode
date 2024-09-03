@@ -13,14 +13,14 @@ class Solution {
         if(dp[index]!=-1){
             return dp[index];
         }
-        bool ans = false;
+
         for(int i=nums[index];i>=1;i--){
-            ans = ans || solve(nums,index+i,dp);
-            if(ans){
-                break;
+            if(solve(nums,index+i,dp)){
+                return dp[index]=true;
             }
+
         }
-        return dp[index]=ans;
+        return dp[index]=false;
     }
 public:
     bool canJump(vector<int>& nums) {
