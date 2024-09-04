@@ -30,10 +30,7 @@ public:
                 direc = (direc + 1)%4;
             }
             else{
-                direc = (direc-1)%4;
-                if(direc<0){
-                    direc +=4;
-                }
+                direc = (direc+3)%4;
             }
         }
         return maxi;
