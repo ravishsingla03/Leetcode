@@ -54,6 +54,14 @@ class Solution {
     }
 public:
     bool isSubPath(ListNode* head, TreeNode* root) {
-        return solve(head,root);
+         if(!root){
+            return false;
+        }
+        if(root->val==head->val){
+            if(dfs(head,root)){
+                return true;
+            }
+        }
+        return isSubPath(head,root->left) || isSubPath(head,root->right);
     }
 };
