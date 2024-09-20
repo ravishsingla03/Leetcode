@@ -28,6 +28,8 @@ public:
         string rev = string(s.rbegin(),s.rend());
         int n  = s.size();
        int count = kmp(s,rev);
-       return rev.substr(0,n-count) + s;
+       string ans = s.substr(count);
+       reverse(ans.begin(),ans.end());
+       return ans + s;
     }
 };
