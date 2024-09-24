@@ -11,8 +11,6 @@ public:
                 int x= find(ans.begin(),ans.end(),nums[i]) - ans.begin();
                 if(nums[i]==nums[j]){
                     ans.erase(find(ans.begin(),ans.end(),nums[i]));
-                    cout<<"chut";
-                    
                 }
                 int y=find(ans.begin(),ans.end(),nums[j]) - ans.begin();
                 if(nums[i]==nums[j]){
