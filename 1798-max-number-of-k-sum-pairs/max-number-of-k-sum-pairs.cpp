@@ -1,5 +1,13 @@
 class Solution {
+    
 public:
+Solution()
+    {
+        ios_base::sync_with_stdio(false); 
+        cin.tie(NULL); 
+        cout.tie(NULL);
+        
+    }
     int maxOperations(vector<int>& nums, int k) {
         sort(nums.begin(),nums.end());
         int i=0;
