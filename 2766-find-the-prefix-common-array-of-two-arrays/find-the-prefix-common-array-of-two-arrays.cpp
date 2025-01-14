@@ -3,19 +3,18 @@ public:
     vector<int> findThePrefixCommonArray(vector<int>& A, vector<int>& B) {
         int n = A.size();
         vector<int>ans(n);
-        unordered_map<int,int>a;
-        unordered_map<int,int>b;
+        vector<int>v(n+1,0);
+        int count =0;
         for(int i=0;i<n;i++){
-            a[A[i]]=1;
-            b[B[i]]=1;
-            int coun=0;
-            for(auto i: a){
-                if(b.count(i.first)!=0){
-                    coun++;
-                }
+            v[A[i]]++;
+            if(v[A[i]]==2){
+                count++;
             }
-            ans[i]=coun;
-
+            v[B[i]]++;
+            if(v[B[i]]==2){
+                count++;
+            }
+            ans[i]=count;
         }
         return ans;
     }
