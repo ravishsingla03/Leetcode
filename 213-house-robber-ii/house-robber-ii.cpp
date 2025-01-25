@@ -1,40 +1,31 @@
 class Solution {
-    int solve(vector<int>& nums,int n,vector<int>&dp){
-        if(n==0){
-            return nums[0];
-        }
-        if(n<0){
+    int solve(int index,vector<int>&nums,vector<int>&dp){
+        if(index>=nums.size()-1){
             return 0;
         }
-        if(dp[n]!=-1){
-            return dp[n];
+        if(dp[index]!=-1){
+            return dp[index];
         }
-        int inc = solve(nums,n-2,dp)+nums[n];
-        int exc = solve(nums,n-1,dp);
-
-        dp[n] = max(inc,exc);
-        return dp[n];
+        int pick = nums[index]+ solve(index+2,nums,dp);
+        int npick = 0+ solve(index+1,nums,dp);
+        return dp[index]=max(pick,npick);
+    }
+    int solve1(int index,vector<int>&nums,vector<int>&dp1){
+        // cout<<index<<" ";
+        if(index>=nums.size()){
+            return 0;
+        }if(dp1[index]!=-1){
+            return dp1[index];
+        }
+        int pick = nums[index]+ solve1(index+2,nums,dp1);
+        int npick = 0+ solve1(index+1,nums,dp1);
+        return dp1[index]=max(pick,npick);
     }
 public:
     int rob(vector<int>& nums) {
-        if(nums.size()==1){
-            return nums[0];
-        }
-        vector<int>v1;
-        vector<int>v2;
-        int n =nums.size();
-        vector<int>dp(n+1,-1);
-        for(int i=1;i<n;i++){
-            v1.push_back(nums[i]);
-        }
-        for(int i=0;i<n-1;i++){
-            v2.push_back(nums[i]);
-        }
-        int ans1 = solve(v1,n-2,dp);
-        vector<int>dp2(n+1,-1);
-        int ans2 = solve(v2,n-2,dp2);
-
-        return max(ans1,ans2);
-
+        // cout<<solve1(1,nums);
+        vector<int>dp(nums.size(),-1);
+        vector<int>dp1(nums.size(),-1);
+        return max(nums[0] + solve(2,nums,dp),solve1(1,nums,dp1));
     }
 };
