@@ -12,11 +12,9 @@ public:
             }
         }
         int n =nums.size();
-        vector<int>ans = nums;
+        vector<int>ans(n,pivot);
         
-        for(int i =count;i<n-count1;i++){
-            ans[i]= pivot;
-        }
+
         for(int i =n-1;i>=0;i--){
             if(nums[i]<pivot && count>=0){
                 ans[count-1] = nums[i];
