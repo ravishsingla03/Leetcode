@@ -14,7 +14,6 @@ class Solution {
         queue<TreeNode*>q;
         q.push(root);
         vector<TreeNode*>ls;
-
         while(!q.empty()){
             int size = q.size();
             ls.clear();
@@ -33,7 +32,7 @@ class Solution {
         return ls;
     }
 
-    TreeNode* solve(vector<TreeNode*>leaf,TreeNode* root){
+    TreeNode* solve(vector<TreeNode*>&leaf,TreeNode* &root){
         if(root==NULL){
             return root;
         }
