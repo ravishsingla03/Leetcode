@@ -1,34 +1,36 @@
 class Solution {
 public:
     vector<int> productExceptSelf(vector<int>& nums) {
-        long long sum =1;
-        int count =0;
-        int x ;
-        for(int i=0;i<nums.size();i++){
-            if(nums[i]!=0){
-                sum = sum*nums[i];
+        int mul=1;
+        int zero =0;
+        for(auto i: nums){
+            if(i!=0){
+                mul*=i;
             }
             else{
-                x=i;
-                count++;
+                zero++;
             }
         }
-        vector<int>ans(nums.size(),0);
-        if(count>1)
+        if(zero==1){
+            for(auto &i: nums){
+                if(i!=0){
+                    i=0;
+                }
+                else{
+                    i = mul;
+                }
+            }
+            return nums;
+        }
+        else if(zero>1){
+            vector<int>ans(nums.size(),0);
             return ans;
-        if(count==1){
-            ans[x]=sum;
-            return ans;
         }
-        cout<<sum;
-        for(int i =0;i<nums.size();i++){
-            if(nums[i]!=0){
-                ans[i] = sum/nums[i];
+        else{
+            for(auto &i: nums){
+                i =mul/i;
             }
-            else{
-                ans[i] = sum;
-            }
+            return nums;
         }
-        return ans;
     }
 };
