@@ -1,36 +1,18 @@
 class Solution {
 public:
     vector<int> productExceptSelf(vector<int>& nums) {
-        int mul=1;
-        int zero =0;
-        for(auto i: nums){
-            if(i!=0){
-                mul*=i;
-            }
-            else{
-                zero++;
-            }
-        }
-        if(zero==1){
-            for(auto &i: nums){
-                if(i!=0){
-                    i=0;
-                }
-                else{
-                    i = mul;
-                }
-            }
-            return nums;
-        }
-        else if(zero>1){
-            vector<int>ans(nums.size(),0);
-            return ans;
-        }
-        else{
-            for(auto &i: nums){
-                i =mul/i;
-            }
-            return nums;
-        }
+       vector<int>ans;
+       ans.push_back(1);
+       int prefix =1;
+       for(int i=0;i<nums.size()-1;i++){
+            prefix*=nums[i];
+            ans.push_back(prefix);
+       }
+       int suffix = 1;
+       for(int i= nums.size()-1;i>0;i--){
+            suffix=suffix*nums[i];
+            ans[i-1] = ans[i-1]*suffix;
+       }
+       return ans;
     }
 };
