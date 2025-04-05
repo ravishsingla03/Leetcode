@@ -5,14 +5,22 @@ public:
         for(auto i: nums){
             mp[i]++;
         }
-        vector<int>ans;
-        priority_queue<pair<int,int>>pq;
+        vector<vector<int>>count(nums.size()+1);
         for(auto i: mp){
-            pq.push({i.second,i.first});
+            count[i.second].push_back(i.first);
         }
-        for(int i=0;i<k;i++){
-            ans.push_back(pq.top().second);
-            pq.pop();
+        vector<int>ans;
+        for(int i=nums.size();i>=0;i--){
+            if(ans.size()==k){
+                return ans;
+            }
+            if(count[i].size()>0){
+                for(auto j: count[i]){
+                    if(ans.size()!=k){
+                        ans.push_back(j);
+                    }
+                }
+            }
         }
         return ans;
     }
