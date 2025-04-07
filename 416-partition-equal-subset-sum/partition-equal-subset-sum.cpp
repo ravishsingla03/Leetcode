@@ -1,34 +1,32 @@
 class Solution {
-    bool solve(vector<int>&nums,int total,int index,int sum,bool &ans,vector<vector<int>>&dp){
-        if(sum==total/2){
-            return true;
+    int solve(vector<int>&nums,int index,int sum,vector<vector<int>>&dp){
+        if(sum==0){
+            return 1;
+        }
+        if(sum<0){
+            return 0;
         }
         if(index==nums.size()){
-            return false;
+            return 0;
         }
         if(dp[index][sum]!=-1){
             return dp[index][sum];
         }
-        bool take =false;
-        for(int i = index; i<nums.size();i++){
-            take = take || solve(nums,total,i+1,sum + nums[i],ans,dp);
-        }
+        int pick =solve(nums,index+1,sum-nums[index],dp);
+        int notpick =solve(nums,index+1,sum,dp);
 
-        return dp[index][sum] = take;
+        return dp[index][sum]=pick | notpick;
     }
 public:
     bool canPartition(vector<int>& nums) {
-        bool ans =false;
-        int sum=0;
-        for(auto i:nums){
+        int sum =0;
+        for(auto i: nums){
             sum+=i;
         }
         if(sum%2!=0){
             return false;
         }
-
-        vector<vector<int>>dp(nums.size(),vector<int>(sum+1,-1));
-        return solve(nums,sum,0,0,ans,dp);
-
+        vector<vector<int>>dp(nums.size(),vector<int>(sum/2+1,-1));
+        return solve(nums,0,sum/2,dp);
     }
 };
