@@ -2,16 +2,19 @@ class Solution {
 public:
     int maxProfit(vector<int>& p) {
         int n = p.size();
-        vector<int>suffix(n);
-        int suff=0;
-        for(int i=n-1;i>=0;i--){
-            suff = max(suff,p[i]);
-            suffix[i]=suff;
-        }
+        int i =0,j=1;
         int ans =0;
-        for(int i=0;i<n-1;i++){
-            ans = max(ans,suffix[i+1]-p[i]);
+        while(j<n){
+            int temp = p[j]-p[i];
+            ans =max(ans,temp);
+            if(p[i]>p[j]){
+                i++;
+            }
+            else{
+                j++;
+            }
         }
         return ans;
     }
+
 };
