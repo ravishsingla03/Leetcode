@@ -8,7 +8,7 @@ public:
             int temp = p[j]-p[i];
             ans =max(ans,temp);
             if(p[i]>p[j]){
-                i++;
+                i=j;
             }
             else{
                 j++;
