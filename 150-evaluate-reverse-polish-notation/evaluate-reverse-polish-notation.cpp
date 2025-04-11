@@ -1,21 +1,42 @@
 class Solution {
 public:
     int evalRPN(vector<string>& tokens) {
-        if(tokens.size()==1){
-            return stoi(tokens[0]);
+        stack<int>st;
+        for(auto temp: tokens){
+            if(temp=="*"){
+                int left = st.top();st.pop();
+                int right = st.top();st.pop();
+                int res = right*left;
+                st.push(res);
+            }
+            else if(temp=="-"){
+                int left = st.top();
+                st.pop();
+                int right = st.top();
+                st.pop();
+                int res = right-left;
+                st.push(res);
+            }
+            else if(temp=="+"){
+                int left = st.top();
+                st.pop();
+                int right = st.top();
+                st.pop();
+                int res = right+left;
+                st.push(res);
+            }
+            else if(temp=="/"){
+                int left = st.top();
+                st.pop();
+                int right = st.top();
+                st.pop();
+                int res = right/left;
+                st.push(res);
+            }
+            else{
+                st.push(stoi(temp));
+            }
         }
-        stack<int> s;
-	for(auto& t : tokens) 
-		if(t == "+" || t == "-" || t == "*" || t == "/") {
-			int op1 = s.top(); s.pop();
-			int op2 = s.top(); s.pop();
-			if(t == "+") op1 = op2 + op1;
-			if(t == "-") op1 = op2 - op1;
-			if(t == "/") op1 = op2 / op1;
-			if(t == "*") op1 = op2 * op1;   
-			s.push(op1);
-		}
-		else s.push(stoi(t));    
-	return s.top(); 
+        return st.top();
     }
 };
