@@ -1,57 +1,28 @@
 class Solution {
-    vector<int>nextsmall(vector<int>h){
-        stack<int>st;
-        int n = h.size();
-        vector<int>ans(n);
-        for(int i=n-1;i>=0;i--){
-            while(!st.empty() && h[st.top()]>=h[i]){
-                st.pop();
-            }
-            if(st.empty()){
-                ans[i]=n;
-            }
-            else{
-                ans[i]=st.top();
-            }
-            st.push(i);
-        }
-        return ans;
-    }
-    vector<int>prevsmall(vector<int>h){
-        stack<int>st;
-        int n = h.size();
-        vector<int>ans(n);
-        for(int i=0;i<n;i++){
-            while(!st.empty() && h[st.top()]>=h[i]){
-                st.pop();
-            }
-            if(st.empty()){
-                ans[i]=-1;
-            }
-            else{
-                ans[i]=st.top();
-            }
-            st.push(i);
-        }
-        return ans;
-    }
+
 public:
-    int largestRectangleArea(vector<int>& heights) {
-        vector<int>next = nextsmall(heights);
-        vector<int>prev = prevsmall(heights);
-        int n = next.size();
-        for(auto i: next){
-            cout<<i<<" ";
-        }
-        cout<<endl;
-        for(auto i: prev){
-            cout<<i<<" ";
-        }
+    int largestRectangleArea(vector<int>& h) {
+        int n = h.size();
         int ans =0;
+        stack<pair<int,int>>st;
+        st.push({h[0],0});
+
         for(int i=0;i<n;i++){
-            int temp = heights[i]*(next[i] - prev[i] -1);
-            ans = max(ans,temp);
+            pair<int,int>temp={h[i],i};
+            while(!st.empty() && st.top().first>h[i]){
+                temp.second = st.top().second;
+                int area = (i-st.top().second)*st.top().first;
+                ans = max(ans,area);
+                st.pop();
+            }
+            st.push(temp);
         }
+        while(!st.empty()){
+             int area = (n-st.top().second)*st.top().first;
+                ans = max(ans,area);
+                st.pop();
+        }
+
         return ans;
     }
 };
