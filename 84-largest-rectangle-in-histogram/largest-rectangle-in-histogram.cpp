@@ -1,49 +1,57 @@
 class Solution {
-    vector<int> nextsmaller(vector<int>&heights,int n){
-        stack<int>s;
-        vector<int>next=heights;
+    vector<int>nextsmall(vector<int>h){
+        stack<int>st;
+        int n = h.size();
+        vector<int>ans(n);
         for(int i=n-1;i>=0;i--){
-            while(!s.empty() && heights[s.top()]>=heights[i]){
-                s.pop();
+            while(!st.empty() && h[st.top()]>=h[i]){
+                st.pop();
             }
-            if(s.empty()){
-                next[i]=n;
+            if(st.empty()){
+                ans[i]=n;
             }
             else{
-                next[i]=s.top();
+                ans[i]=st.top();
             }
-            s.push(i);
+            st.push(i);
         }
-        return next;
+        return ans;
     }
-    vector<int> prevsmaller(vector<int>&heights,int n){
-        stack<int>s;
-        vector<int>prev=heights;
+    vector<int>prevsmall(vector<int>h){
+        stack<int>st;
+        int n = h.size();
+        vector<int>ans(n);
         for(int i=0;i<n;i++){
-            while(!s.empty() && heights[s.top()]>=heights[i]){
-                s.pop();
+            while(!st.empty() && h[st.top()]>=h[i]){
+                st.pop();
             }
-            if(s.empty()){
-                prev[i]=-1;
+            if(st.empty()){
+                ans[i]=-1;
             }
             else{
-                prev[i]=s.top();
+                ans[i]=st.top();
             }
-            s.push(i);
+            st.push(i);
         }
-        return prev;
+        return ans;
     }
 public:
     int largestRectangleArea(vector<int>& heights) {
-        int maxi = 0;
-        int n= heights.size();
-        vector<int>prev = prevsmaller(heights,n);
-        vector<int>next = nextsmaller(heights,n);
-
-        for(int i=0;i<n;i++){
-            int b  = next[i]-prev[i]-1;
-            maxi  = max(maxi,heights[i]*b);
+        vector<int>next = nextsmall(heights);
+        vector<int>prev = prevsmall(heights);
+        int n = next.size();
+        for(auto i: next){
+            cout<<i<<" ";
         }
-        return maxi;
+        cout<<endl;
+        for(auto i: prev){
+            cout<<i<<" ";
+        }
+        int ans =0;
+        for(int i=0;i<n;i++){
+            int temp = heights[i]*(next[i] - prev[i] -1);
+            ans = max(ans,temp);
+        }
+        return ans;
     }
 };
