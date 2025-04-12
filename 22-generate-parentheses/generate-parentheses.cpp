@@ -1,11 +1,10 @@
 class Solution {
 public:
     void solve(int i,int j,vector<string>&ans,string temp){
-        if(j<i){
-            return;
-        }
+
         if(i==j && i==0){
             ans.push_back(temp);
+            return ;
         }
         if(i>=0){
             solve(i-1,j,ans,temp+"(");
