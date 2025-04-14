@@ -1,56 +1,47 @@
 class Solution {
-public:
-    int search(vector<int>& nums, int target) {
-        int n =nums.size();
-        int start = 0;
-        int end= n-1;
-        int mid =start -(start-end)/2;
-        
-        while(start<end){
-            if(nums[mid]>=nums[0]){
-                start =mid+1;
+    int findMin(vector<int>& nums) {
+        int x = nums[0];
+        int low= 0;
+        int high = nums.size()-1;
+        int ans =x;
+        while(low<high){
+            int mid=low +(high-low)/2;
+            if(nums[mid]>=x){
+                low =mid+1;
             }
             else{
-                end =mid;
+                high =mid;
             }
-            mid =start -(start-end)/2;
         }
+        if(x<nums[high]){
+            return 0;
+        }
+        return high;
+    }
+public:
+    int search(vector<int>& nums, int target) {
+        int n = nums.size();
+        int low =0;
+        int high = nums.size()-1;
+        int x= nums[0];
+        int mininum = findMin(nums);
 
-        if(nums[mid]==target){
-            return mid;
-        }
-        else if(nums[mid]<target  && nums[n-1]>=target){
-            start =mid+1;
-            end = n-1;
-            mid =start -(start-end)/2;
-            while(start<=end){
-                if(nums[mid]==target){
-                    return mid;
-                }
-                else if(nums[mid]>target){
-                    end =mid-1;
-                }
-                else{
-                    start =mid+1;
-                }
-                          mid =start -(start-end)/2;
-            }
+        if(target>=nums[mininum] && target<=nums[n-1]){
+            low = mininum;
         }
         else{
-            start =0;
-            end = mid-1;
-            mid =start -(start-end)/2;
-            while(start<=end){
-                if(nums[mid]==target){
-                    return mid;
-                }
-                else if(nums[mid]>target){
-                    end =mid-1;
-                }
-                else{
-                    start =mid+1;
-                }
-                          mid =start -(start-end)/2;
+            high = mininum-1;
+        }
+        while(low<=high){
+            int mid = (low+high)/2;
+            if(nums[mid]==target){
+                return mid;
+            }
+            if(nums[mid]>target){
+                high = mid-1;
+            }
+            else{
+                low= mid+1;
             }
         }
         return -1;
