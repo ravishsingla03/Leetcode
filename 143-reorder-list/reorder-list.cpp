@@ -26,10 +26,30 @@ class Solution {
     }
 public:
     void reorderList(ListNode* head) {
-        int count =0;
-        while(head){
-            head->next=reverse(head->next);
-            head=head->next;
+        ListNode* slow= head;
+        ListNode* fast= head;
+        while(fast){
+            slow = slow->next;
+            fast = fast->next;
+            if(fast){
+                fast=fast->next;
+            }
+        }
+        slow = reverse(slow);
+        ListNode* temp = head;
+
+        while(temp){
+            ListNode* tempnext = temp->next;
+            temp->next = slow;
+            temp = tempnext;
+            if(slow){
+                ListNode* slownext = slow->next;
+                slow->next = temp;
+                slow = slownext;
+            }
+            else{
+                break;
+            }
         }
     }
 };
