@@ -20,7 +20,6 @@ public:
             while(i< n && nums[i]==1){
                 i++;
             }
-            cout<<i;
             x++;
             i++;
         }   
